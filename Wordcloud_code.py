@@ -49,21 +49,16 @@ def calculate_frequencies(file_contents):
    
     # LEARNER CODE START HERE
     frequencies = {}
-    words = []
-    for letter in punctuations:
-        file_contents = file_contents.replace(letter, "")
-    for word in uninteresting_words:
-        w= " "+ word + " "
-        file_contents = file_contents.replace(w, "")
+    dictionary = []
     for word in file_contents.split():
-        if word.lower() not in words:
-            words.append(word.lower())
-            if word not in frequencies:
-                frequencies[word] =1
-            else:
-                frequencies[word] +=1
-    #learner code ends here
-    
+        if word.isalpha() and word.lower() not in uninteresting_words:
+            dictionary.append(word.lower())
+    for word in dictionary:
+        if word not in frequencies:
+            frequencies[word] =1
+        frequencies[word] +=file_contents.split().count(word)
+        
+    #print(frequencies)
     #wordcloud
     cloud = wordcloud.WordCloud()
     cloud.generate_from_frequencies(frequencies)
